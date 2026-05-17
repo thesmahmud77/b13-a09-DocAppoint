@@ -12,8 +12,8 @@ const Navbar = () => {
       </div>
       <div className="col-span-6 flex items-center justify-center gap-3">
         <Link href={"/"}>Home</Link>
-        <Link href={"/alldoctors"}>Doctors</Link>
-        <Link href={"/desboard"}>Deshboard</Link>
+        <Link href={"/doctors"}>Doctors</Link>
+        <Link href={"/deshboard"}>Deshboard</Link>
       </div>
       <div className="col-span-3 flex items-center justify-center gap-3">
         <Link href={"/signin"}>Login</Link>
