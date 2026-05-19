@@ -1,3 +1,4 @@
+import { Button } from "@heroui/react";
 import { FaRegUser, FaUserCheck } from "react-icons/fa";
 import { FaHouseMedicalFlag, FaMapLocationDot } from "react-icons/fa6";
 import { GiMedicalPack } from "react-icons/gi";
@@ -24,6 +25,7 @@ const page = async ({ params }) => {
     description,
     availability,
     education,
+    reviews,
   } = doctorDetails;
   return (
     <div className="grid grid-cols-12 gap-10">
@@ -42,6 +44,7 @@ const page = async ({ params }) => {
             </p>
           </div>
         </div>
+
         <div>
           <div className="Experience flex items-start flex-col justify-between my-8 text-[18px]">
             <div>
@@ -58,8 +61,13 @@ const page = async ({ params }) => {
             </div>
           </div>
         </div>
+        <div>
+          <Button className={"w-full py-5 cursor-pointer"}>
+            Book Appointment
+          </Button>
+        </div>
       </div>
-      <div className="p-8 col-span-8">
+      <div className=" details p-8 col-span-8">
         <div>
           <h1 className="text-3xl font-bold flex items-center justify-start gap-3">
             <FaRegUser />
@@ -104,6 +112,33 @@ const page = async ({ params }) => {
             </div>
           </div>
           <div className="divider"></div>
+        </div>
+        <div className="mt-15">
+          <h1 className="text-3xl font-bold">Patient Reviews</h1>
+          <div>
+            {reviews.map((review, index) => (
+              <div key={index}>
+                <div className="divider"></div>
+
+                <div>
+                  <div className="flex items-center justify-start gap-3">
+                    <div className="bg-green-100 rounded-full text-green-900 border-2 border-green-500 w-12  h-12 flex items-center justify-center">
+                      {review?.name ? review.name[0] : "U"}
+                    </div>
+                    <div>
+                      <h3>{review.name}</h3>
+                      <p className="text-[14px] font-normal">{review.time}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[14px] font-normal mt-3">
+                      {review.text}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
