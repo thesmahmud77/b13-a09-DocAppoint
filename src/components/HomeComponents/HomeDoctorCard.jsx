@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { FaUserGraduate } from "react-icons/fa";
 import { RiMoneyDollarBoxLine } from "react-icons/ri";
@@ -29,8 +30,8 @@ const HomeDoctorCard = ({ singleDoctorsData }) => {
             {fee}
           </p>
           <Link
-            href={`/doctors/:${_id}`}
-            className="w-full h-10 m rounded-[10px] bg-green-400 cursor-pointer mt-5"
+            href={`/doctor-details/${_id}`}
+            className="w-full h-10 m rounded-[10px] bg-green-400 cursor-pointer mt-5 flex items-center justify-center"
           >
             View Details
           </Link>
