@@ -8,6 +8,7 @@ const BookingModal = ({ doctorId, doctorName }) => {
   const [patientName, setPatientName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [status, setStatus] = useState("panding");
   const [loading, setLoading] = useState(false);
 
   const collectAndSubmit = async () => {
@@ -17,6 +18,7 @@ const BookingModal = ({ doctorId, doctorName }) => {
       patientName,
       date,
       time,
+      status,
     };
 
     const res = await fetch("http://localhost:8080/appointments", {
