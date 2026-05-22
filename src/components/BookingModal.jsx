@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { Button } from "@heroui/react";
+import Swal from "sweetalert2";
 
-const BookingModal = ({ doctorId, doctorName }) => {
+const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [patientName, setPatientName] = useState("");
   const [date, setDate] = useState("");
@@ -39,13 +40,22 @@ const BookingModal = ({ doctorId, doctorName }) => {
     setLoading(false);
 
     if (success) {
-      alert("Appointment booked successfully!");
+      Swal.fire({
+        title: "Appointment Booked",
+        icon: "success",
+        draggable: true,
+      });
       setIsOpen(false);
       setPatientName("");
       setDate("");
       setTime("");
     } else {
-      alert("Something went wrong. Try again.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
     }
   };
 
@@ -53,7 +63,7 @@ const BookingModal = ({ doctorId, doctorName }) => {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="w-full py-6 font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg cursor-pointer"
+        className="w-full py-6 font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg cursor-pointer text-white"
       >
         Book Appointment
       </Button>
@@ -63,7 +73,7 @@ const BookingModal = ({ doctorId, doctorName }) => {
           <div className="bg-[#0b1329] border border-slate-700 rounded-2xl p-8 w-full max-w-md text-slate-200">
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">Book Appointment</h2>
+              <h2 className="text-xl font-bold">Book Appointment</h2>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-slate-400 hover:text-white text-xl"
@@ -72,7 +82,12 @@ const BookingModal = ({ doctorId, doctorName }) => {
               </button>
             </div>
 
-            <p className="text-slate-400 mb-6">Dr. {doctorName}</p>
+            <div className="flex items-center justify-center flex-col mt-2">
+              <img className="w-20 h-20 rounded-full" src={docPhoto} alt="" />
+              <p className=" text-center mb-6 text-2xl font-bold">
+                {doctorName}
+              </p>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Doctor Name */}

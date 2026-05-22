@@ -21,7 +21,7 @@ const deshboard = () => {
             <h1 className="text-3xl font-bold">Today Appointments</h1>
             <Button variant="outline">View All</Button>
           </div>
-          {/* Table Start */}
+
           <div className="mt-10">
             <DeshboardTable></DeshboardTable>
           </div>
