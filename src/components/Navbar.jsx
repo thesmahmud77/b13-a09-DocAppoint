@@ -16,8 +16,8 @@ const Navbar = () => {
         <Link href={"/deshboard"}>Deshboard</Link>
       </div>
       <div className="col-span-3 flex items-center justify-center gap-3">
-        <Link href={"/signin"}>Login</Link>
-        <Link href={"/signup"}>Register</Link>
+        <Link href={"/auth/signin"}>Login</Link>
+        <Link href={"/auth/signup"}>Register</Link>
       </div>
     </div>
   );
