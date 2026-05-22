@@ -5,15 +5,16 @@ import { Button } from "@heroui/react";
 
 const BookingModal = ({ doctorId, doctorName }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [patientName, setPatientName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ফর্মের সব ডাটা কালেক্ট করে DB তে পাঠাবে
   const collectAndSubmit = async () => {
     const formData = {
       doctorId,
       doctorName,
+      patientName,
       date,
       time,
     };
@@ -36,12 +37,13 @@ const BookingModal = ({ doctorId, doctorName }) => {
     setLoading(false);
 
     if (success) {
-      alert("✅ Appointment booked successfully!");
+      alert("Appointment booked successfully!");
       setIsOpen(false);
+      setPatientName("");
       setDate("");
       setTime("");
     } else {
-      alert("❌ Something went wrong. Try again.");
+      alert("Something went wrong. Try again.");
     }
   };
 
@@ -71,7 +73,7 @@ const BookingModal = ({ doctorId, doctorName }) => {
             <p className="text-slate-400 mb-6">Dr. {doctorName}</p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Doctor Name — শুধু দেখানোর জন্য, readonly */}
+              {/* Doctor Name */}
               <div>
                 <label className="block text-sm font-semibold mb-2">
                   Doctor Name
@@ -83,13 +85,19 @@ const BookingModal = ({ doctorId, doctorName }) => {
                   className="w-full bg-[#111c38] border border-slate-700 rounded-xl p-3 text-slate-400 focus:outline-none cursor-not-allowed"
                 />
               </div>
+
+              {/* Patient Name */}
               <div>
                 <label className="block text-sm font-semibold mb-2">
                   Patient Name
                 </label>
                 <input
                   type="text"
-                  className="w-full bg-[#111c38] border border-slate-700 rounded-xl p-3 text-slate-400 focus:outline-none cursor-not-allowed"
+                  placeholder="Enter Your Patient Name"
+                  value={patientName}
+                  onChange={(e) => setPatientName(e.target.value)}
+                  required
+                  className="w-full bg-[#111c38] border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
