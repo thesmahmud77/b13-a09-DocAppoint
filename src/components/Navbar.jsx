@@ -31,10 +31,7 @@ const Navbar = () => {
           >
             Doctors
           </Link>
-          <Link
-            className="hover:text-primary transition-colors"
-            href={"/deshboard"}
-          >
+          <Link className="hover:text-primary transition-colors" href={"/user"}>
             Deshboard
           </Link>
         </div>

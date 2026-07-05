@@ -2,6 +2,7 @@ import HeroDoctors from "@/components/HomeComponents/HeroDoctors";
 import HomeHero from "@/components/HomeComponents/HomeHero";
 import Homeinsights from "@/components/HomeComponents/Homeinsights";
 import HomeRatings from "@/components/HomeComponents/HomeRatings";
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (

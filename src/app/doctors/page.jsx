@@ -1,7 +1,9 @@
 import AllDoctorCard from "@/components/All-Doctor/AllDoctorCard";
 
 const allDoctor = async () => {
-  const res = await fetch("http://localhost:8080/all-doctor");
+  const res = await fetch(
+    "https://doc-appoint-server-beta.vercel.app/all-doctor",
+  );
   if (!res.ok) return {};
   const data = await res.json();
   return data || [];

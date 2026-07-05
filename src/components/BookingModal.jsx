@@ -22,11 +22,14 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
       status,
     };
 
-    const res = await fetch("http://localhost:8080/appointments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    const res = await fetch(
+      "https://doc-appoint-server-beta.vercel.app/appointments",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      },
+    );
 
     return res.ok;
   };
@@ -70,13 +73,13 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
 
       {isOpen && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-[#0b1329] border border-slate-700 rounded-2xl p-8 w-full max-w-md text-slate-200">
+          <div className=" bg-white border border-slate-700 rounded-2xl p-8 w-full max-w-md text-gray-800">
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold">Book Appointment</h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-slate-400 hover:text-white text-xl"
+                className="text-slate-400 hover:text-red-600 cursor-pointer text-xl"
               >
                 ✕
               </button>
@@ -99,7 +102,7 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
                   type="text"
                   value={doctorName}
                   readOnly
-                  className="w-full bg-[#111c38] border border-slate-700 rounded-xl p-3 text-slate-400 focus:outline-none cursor-not-allowed"
+                  className="w-full border border-slate-700 rounded-xl p-3 text-black focus:outline-none cursor-not-allowed"
                 />
               </div>
 
@@ -114,7 +117,7 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
                   value={patientName}
                   onChange={(e) => setPatientName(e.target.value)}
                   required
-                  className="w-full bg-[#111c38] border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full border text-black border-slate-700 rounded-xl p-3  focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -129,7 +132,7 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
                   onChange={(e) => setDate(e.target.value)}
                   required
                   min={new Date().toISOString().split("T")[0]}
-                  className="w-full bg-[#111c38] border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full  border border-slate-700 rounded-xl p-3 text-black focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -143,7 +146,7 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
                   required
-                  className="w-full bg-[#111c38] border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full  border border-slate-700 rounded-xl p-3 text-black focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -152,14 +155,14 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="flex-1 py-3 rounded-xl border border-slate-600 text-slate-300 hover:bg-slate-800"
+                  className="flex-1 py-3 rounded-xl border cursor-pointer border-slate-600 text-black hover:bg-slate-300"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 font-bold disabled:opacity-50"
+                  className="flex-1 py-3 rounded-xl text-white cursor-pointer bg-blue-600 hover:bg-blue-700 font-bold disabled:opacity-50"
                 >
                   {loading ? "Booking..." : "Confirm"}
                 </button>

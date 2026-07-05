@@ -1,7 +1,9 @@
 import HomeDoctorCard from "./HomeDoctorCard";
 
 const TopDoctors = async () => {
-  const res = await fetch("http://localhost:8080/top-3-doctor");
+  const res = await fetch(
+    "https://doc-appoint-server-beta.vercel.app/top-3-doctor",
+  );
   const topDoctorsData = res.json();
   return topDoctorsData || [];
 };

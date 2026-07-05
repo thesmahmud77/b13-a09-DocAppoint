@@ -7,7 +7,9 @@ import { PiHospitalFill } from "react-icons/pi";
 import { MdStar } from "react-icons/md";
 
 const fetchDetailsDoctor = async (id) => {
-  const res = await fetch(`http://localhost:8080/doctors/${id}`);
+  const res = await fetch(
+    `https://doc-appoint-server-beta.vercel.app/doctors/${id}`,
+  );
   if (!res.ok) return {};
   const data = await res.json();
   return data || {};
