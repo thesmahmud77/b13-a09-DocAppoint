@@ -190,3 +190,4 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
 };
 
 export default BookingModal;
+s;
