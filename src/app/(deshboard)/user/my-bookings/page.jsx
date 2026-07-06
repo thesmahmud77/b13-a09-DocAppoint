@@ -11,13 +11,10 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ডাটাবেজ থেকে লগইন করা ইউজারের ইমেইল অনুযায়ী বুকিং ডাটা নিয়ে আসা
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(
-      `https://doc-appoint-server-beta.vercel.app/appointments?email=${user.email}`,
-    )
+    fetch(`http://localhost:8080/appointments?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setBookings(data);
@@ -29,7 +26,6 @@ const MyBookings = () => {
       });
   }, [user?.email]);
 
-  // অ্যাপয়েন্টমেন্ট ডিলিট করার হ্যান্ডলার
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -48,7 +44,6 @@ const MyBookings = () => {
           });
 
           if (res.ok) {
-            // পেজ রিফ্রেশ ছাড়া ইনস্ট্যান্ট স্টেট আপডেট
             setBookings((prev) => prev.filter((booking) => booking._id !== id));
 
             Swal.fire({
@@ -65,7 +60,6 @@ const MyBookings = () => {
     });
   };
 
-  // লোডিং স্টেট
   if (sessionPending || isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">

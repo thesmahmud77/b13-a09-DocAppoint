@@ -1,75 +1,15 @@
-"use client";
-import { useState } from "react";
-import { Button } from "@heroui/react";
-import Swal from "sweetalert2";
 import { useSession } from "@/lib/auth-client";
+import { Button } from "@heroui/react";
 
-const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
+const UserUpdateModal = () => {
   const { data } = useSession();
-  const user = data?.user; // user একটি অবজেক্ট, একে ফাংশন হিসেবে কল করা যাবে না
-
+  const user = data?.user;
   const [isOpen, setIsOpen] = useState(false);
   const [patientName, setPatientName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [status, setStatus] = useState("pending"); // স্পেলিং ফিক্স করা হয়েছে
+  const [status, setStatus] = useState("pending");
   const [loading, setLoading] = useState(false);
-
-  const collectAndSubmit = async () => {
-    const formData = {
-      doctorId,
-      doctorName,
-      docPhoto, // ডাটাবেজে ছবির লিংক রাখার জন্য যুক্ত করা হলো
-      patientName,
-      date,
-      time,
-      status,
-      userEmail: user?.email || "", // অপশনাল চেইনিং ব্যবহার করা হয়েছে যাতে ইউজার না থাকলে ক্র্যাশ না করে
-      userName: user?.name || "",
-      createdAt: new Date().toISOString(),
-    };
-
-    const res = await fetch(
-      "https://doc-appoint-server-beta.vercel.app/appointments",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      },
-    );
-
-    return res.ok;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true); // এখানে স্টেট সেটার ফাংশন (setLoading) সঠিকভাবে কল করা হয়েছে
-
-    const success = await collectAndSubmit();
-
-    setLoading(false);
-
-    if (success) {
-      Swal.fire({
-        title: "Appointment Booked",
-        text: "Your appointment has been successfully submitted!",
-        icon: "success",
-        confirmButtonColor: "#2563eb",
-      });
-      setIsOpen(false);
-      setPatientName("");
-      setDate("");
-      setTime("");
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong! Please try again.",
-        confirmButtonColor: "#2563eb",
-      });
-    }
-  };
-
   return (
     <>
       <Button
@@ -189,5 +129,4 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
   );
 };
 
-export default BookingModal;
-s;
+export default UserUpdateModal;

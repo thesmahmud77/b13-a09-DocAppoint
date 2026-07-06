@@ -10,9 +10,9 @@ const DeshboardSidebar = () => {
   const user = session?.user;
   const pathname = usePathname();
   //   console.log("User from Deshboard Sidebar", user);
-  //   if (!user) {
-  //     redirect("/auth/signin");
-  //   }
+  if (!user) {
+    redirect("/auth/signin");
+  }
 
   const userItems = [
     { icon: Circles3Plus, label: "Overview", href: "/user" },

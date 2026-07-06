@@ -1,4 +1,9 @@
-import BookingModal from "@/components/BookingModal";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
+import { useState } from "react";
+import BookingModal from "../../../components/BookingModal"; // পাথটি আপনার প্রোজেক্ট অনুযায়ী চেক করে নিন
 import { FaRegUser } from "react-icons/fa";
 import { FaHouseMedicalFlag } from "react-icons/fa6";
 import { HiLocationMarker } from "react-icons/hi";
@@ -6,18 +11,60 @@ import { IoIosTime } from "react-icons/io";
 import { PiHospitalFill } from "react-icons/pi";
 import { MdStar } from "react-icons/md";
 
-const fetchDetailsDoctor = async (id) => {
-  const res = await fetch(
-    `https://doc-appoint-server-beta.vercel.app/doctors/${id}`,
-  );
-  if (!res.ok) return {};
-  const data = await res.json();
-  return data || {};
-};
+const Page = ({ params }) => {
+  const router = useRouter();
+  const { data: session, isPending } = useSession();
+  const [doctorDetails, setDoctorDetails] = useState(null);
+  const [loadingDoctor, setLoadingDoctor] = useState(true);
 
-const page = async ({ params }) => {
-  const { id } = await params;
-  const doctorDetails = await fetchDetailsDoctor(id);
+  // Unwrapping params safely
+  const [unwrappedParams, setUnwrappedParams] = useState(null);
+
+  useEffect(() => {
+    params.then((res) => setUnwrappedParams(res));
+  }, [params]);
+
+  const id = unwrappedParams?.id;
+
+  // সেশন চেক এবং রিডাইরেক্ট লজিক
+  useEffect(() => {
+    if (!isPending && !session?.user) {
+      router.push("/auth/signin");
+    }
+  }, [session, isPending, router]);
+
+  // ডক্টর ডিটেইলস ফেচ করার লজিক
+  useEffect(() => {
+    if (id && session?.user) {
+      setLoadingDoctor(true);
+      fetch(`https://doc-appoint-server-beta.vercel.app/doctors/${id}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to fetch");
+          return res.json();
+        })
+        .then((data) => {
+          setDoctorDetails(data || {});
+          setLoadingDoctor(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setDoctorDetails({});
+          setLoadingDoctor(false);
+        });
+    }
+  }, [id, session]);
+
+  // লোডিং স্টেট হ্যান্ডেলিং
+  if (isPending || loadingDoctor) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-gray-500 text-lg">লোড হচ্ছে...</p>
+      </div>
+    );
+  }
+
+  // যদি ইউজার লগইন না থাকে তবে ব্ল্যাঙ্ক রিটার্ন করবে (রিডাইরেক্ট হওয়া পর্যন্ত)
+  if (!session?.user) return null;
 
   const {
     name,
@@ -30,7 +77,7 @@ const page = async ({ params }) => {
     availability = [],
     education = [],
     reviews = [],
-  } = doctorDetails;
+  } = doctorDetails || {};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 py-10 px-4">
@@ -269,4 +316,4 @@ const page = async ({ params }) => {
   );
 };
 
-export default page;
+export default Page;

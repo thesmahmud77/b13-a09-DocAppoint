@@ -31,9 +31,14 @@ const Navbar = () => {
           >
             Doctors
           </Link>
-          <Link className="hover:text-primary transition-colors" href={"/user"}>
-            Deshboard
-          </Link>
+          {user ? (
+            <Link
+              className="hover:text-primary transition-colors"
+              href={"/user"}
+            >
+              Dashboard
+            </Link>
+          ) : null}
         </div>
 
         <div className="flex items-center gap-4">
