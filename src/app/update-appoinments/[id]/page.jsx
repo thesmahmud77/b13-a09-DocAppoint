@@ -15,7 +15,7 @@ const UpdateAppointments = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://localhost:8080/appointments/${id}`)
+    fetch(`https://doc-appoint-server-beta.vercel.app/appointments/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBooking(data);
@@ -37,15 +37,18 @@ const UpdateAppointments = () => {
     setIsSaving(true);
 
     try {
-      const res = await fetch(`http://localhost:8080/appointments/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          patientName: booking.patientName,
-          date: booking.date,
-          time: booking.time,
-        }),
-      });
+      const res = await fetch(
+        `https://doc-appoint-server-beta.vercel.app/appointments/${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            patientName: booking.patientName,
+            date: booking.date,
+            time: booking.time,
+          }),
+        },
+      );
 
       if (res.ok) {
         await Swal.fire({

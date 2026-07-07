@@ -15,7 +15,9 @@ const MyBookings = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:8080/appointments?email=${user.email}`)
+    fetch(
+      `https://doc-appoint-server-beta.vercel.app/appointments?email=${user.email}`,
+    )
       .then((res) => res.json())
       .then((data) => {
         setBookings(data);
@@ -40,9 +42,12 @@ const MyBookings = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`http://localhost:8080/appointments/${id}`, {
-            method: "DELETE",
-          });
+          const res = await fetch(
+            `https://doc-appoint-server-beta.vercel.app/appointments/${id}`,
+            {
+              method: "DELETE",
+            },
+          );
 
           if (res.ok) {
             setBookings((prev) => prev.filter((booking) => booking._id !== id));
