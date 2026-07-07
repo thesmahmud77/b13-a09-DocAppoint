@@ -2,13 +2,11 @@ import DeshboardSidebar from "@/components/Deshboard/DeshboardSidebar";
 
 const DeshboardLayout = ({ children }) => {
   return (
-    <div className="flex items-start justify-between min-h-screen w-full max-w-7xl gap-10">
-      <div className=" col-span-2 max-w-7xl mx-auto flex flex-col gap-5 px-10 items-center justify-start border-gray-700/30 border-r-2">
+    <div className="flex items-start justify-between min-h-screen w-full max-w-7xl mx-auto gap-10 bg-gray-50/50">
+      <div className="flex flex-col gap-5 px-6 py-8 items-center justify-start border-r border-gray-100">
         <DeshboardSidebar></DeshboardSidebar>
       </div>
-      <main className="w-full flex items-start justify-center col-span-10">
-        {children}
-      </main>
+      <main className="w-full flex items-start justify-center">{children}</main>
     </div>
   );
 };

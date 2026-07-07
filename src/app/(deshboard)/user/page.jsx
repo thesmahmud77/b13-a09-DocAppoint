@@ -25,59 +25,64 @@ const MyProfile = () => {
   }
 
   return (
-    <div className="w-[1000px] mx-auto my-8 bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-hidden">
-      <div className="h-32 bg-gradient-to-r from-indigo-500 to-blue-600 relative"></div>
+    <div className="w-full max-w-3xl mx-auto my-8 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="h-32 bg-gradient-to-r from-blue-500 to-blue-600 relative"></div>
 
-      <div className="relative px-6 pb-8">
-        <div className="absolute -top-14 left-6">
+      <div className="relative px-6 md:px-8 pb-8">
+        {/* অ্যাভাটার */}
+        <div className="absolute -top-12 left-6 md:left-8">
           <img
             src={user.image}
             alt={user.name}
-            className="w-24 h-24 rounded-full border-4 border-white dark:border-zinc-900 object-cover bg-gray-100 shadow-md"
+            className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white object-cover bg-gray-100 shadow-md"
           />
         </div>
 
+        {/* Edit বাটন সারি — অ্যাভাটার এর সাথে align রাখতে top padding দেওয়া হলো */}
         <div className="flex justify-end pt-4">
           <Link
             href={"/update-user"}
-            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 shadow-sm active:scale-95"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 shadow-sm active:scale-95"
           >
             Edit Profile
           </Link>
         </div>
 
-        <div className="mt-4">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {user.name}
-          </h2>
-          <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mt-0.5">
+        {/* নাম সেকশন — অ্যাভাটারের নিচে ক্লিয়ার স্পেস রাখতে pt যোগ করা হলো */}
+        <div className="mt-8 md:mt-6">
+          <h2 className="text-2xl font-bold text-gray-900">{user.name}</h2>
+          <p className="text-xs font-semibold uppercase tracking-wider text-blue-600 mt-0.5">
             Verified Patient
           </p>
         </div>
 
-        <hr className="my-6 border-gray-100 dark:border-zinc-800" />
+        <hr className="my-6 border-gray-100" />
 
-        <div className="grid gap-4">
-          <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-zinc-800/40 border border-gray-100/50 dark:border-zinc-800/50">
-            <div className="p-2.5 bg-indigo-50 dark:bg-indigo-950/50 rounded-xl text-indigo-600 dark:text-indigo-400"></div>
-            <div>
-              <p className="text-xs font-medium text-gray-400 dark:text-zinc-500 uppercase tracking-wider">
+        {/* ইনফো কার্ড — বড় স্ক্রিনে ২ কলাম, মোবাইলে ১ কলাম */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100">
+            <div className="p-2.5 bg-blue-50 rounded-xl text-blue-600 shrink-0">
+              <LuCircleUserRound className="size-5" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">
                 Full Name
               </p>
-              <p className="text-base font-semibold text-gray-800 dark:text-zinc-200">
+              <p className="text-base font-semibold text-gray-800 truncate">
                 {user.name}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-zinc-800/40 border border-gray-100/50 dark:border-zinc-800/50">
-            <div className="p-2.5 bg-blue-50 dark:bg-blue-950/50 rounded-xl text-blue-600 dark:text-blue-400"></div>
-            <div>
-              <p className="text-xs font-medium text-gray-400 dark:text-zinc-500 uppercase tracking-wider">
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100">
+            <div className="p-2.5 bg-blue-50 rounded-xl text-blue-600 shrink-0">
+              <HiOutlineMail className="size-5" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">
                 Email Address
               </p>
-              <p className="text-base font-semibold text-gray-800 dark:text-zinc-200">
-                <HiOutlineMail />
+              <p className="text-base font-semibold text-gray-800 truncate">
                 {user.email}
               </p>
             </div>

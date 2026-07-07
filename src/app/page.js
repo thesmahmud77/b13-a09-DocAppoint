@@ -1,4 +1,6 @@
 import HeroDoctors from "@/components/HomeComponents/HeroDoctors";
+import HomeCTA from "@/components/HomeComponents/HomeCTA";
+import HomeFAQ from "@/components/HomeComponents/HomeFAQ";
 import HomeHero from "@/components/HomeComponents/HomeHero";
 import Homeinsights from "@/components/HomeComponents/Homeinsights";
 import HomeRatings from "@/components/HomeComponents/HomeRatings";
@@ -11,6 +13,8 @@ export default function Home() {
       <HeroDoctors></HeroDoctors>
       <HomeRatings></HomeRatings>
       <Homeinsights></Homeinsights>
+      <HomeFAQ></HomeFAQ>
+      <HomeCTA></HomeCTA>
     </div>
   );
 }

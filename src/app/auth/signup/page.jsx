@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import {
@@ -11,16 +13,18 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
-import { HiLockClosed, HiMail, HiUser } from "react-icons/hi";
+import { HiLockClosed, HiMail, HiUser, HiEye, HiEyeOff } from "react-icons/hi";
 import { PiHospitalFill } from "react-icons/pi";
 import Swal from "sweetalert2";
 
 const SignUpPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const fromData = new FormData(e.currentTarget);
     const userdata = Object.fromEntries(fromData.entries());
-    // console.log("Form Submited With", data);
 
     const { data, error } = await authClient.signUp.email({
       name: userdata.name,
@@ -28,23 +32,27 @@ const SignUpPage = () => {
       password: userdata.password,
       callbackURL: "/",
     });
-    // console.log(data);
+
     if (data) {
-      Swal.fire({
-        title: "Register Completed",
+      await Swal.fire({
+        title: "Registration Completed",
         icon: "success",
         draggable: true,
+        timer: 1500,
+        showConfirmButton: false,
       });
+      router.push("/");
     }
+
     if (error) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Something went wrong!",
-        footer: '<a href="#">Why do I have this issue?</a>',
+        text: error.message || "Something went wrong!",
       });
     }
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/50 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
@@ -114,7 +122,7 @@ const SignUpPage = () => {
               isRequired
               minLength={8}
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               validate={(value) => {
                 if (value.length < 8) {
                   return "Password must be at least 8 characters";
@@ -133,11 +141,25 @@ const SignUpPage = () => {
                 <HiLockClosed className="text-blue-500 text-base" />
                 Password
               </Label>
-              <Input
-                name="password"
-                placeholder="Create a strong password"
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all duration-200"
-              />
+              <div className="relative">
+                <Input
+                  name="password"
+                  placeholder="Create a strong password"
+                  className="w-full h-11 px-4 pr-11 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all duration-200"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <HiEyeOff className="text-lg" />
+                  ) : (
+                    <HiEye className="text-lg" />
+                  )}
+                </button>
+              </div>
               <Description className="text-xs text-slate-400 mt-0.5">
                 Must be at least 8 characters with 1 uppercase and 1 number
               </Description>
@@ -151,16 +173,16 @@ const SignUpPage = () => {
                 className="w-4 h-4 mt-0.5 rounded border-slate-300 accent-blue-600 cursor-pointer flex-shrink-0"
               />
               <span className="text-sm text-slate-500 leading-relaxed">
-                I agree to the
+                I agree to the{" "}
                 <Link
-                  href="//auth/signup"
+                  href="/auth/signup"
                   className="text-blue-600 font-semibold hover:underline"
                 >
                   Terms of Service
-                </Link>
-                and
+                </Link>{" "}
+                and{" "}
                 <Link
-                  href="//auth/signup"
+                  href="/auth/signup"
                   className="text-blue-600 font-semibold hover:underline"
                 >
                   Privacy Policy
