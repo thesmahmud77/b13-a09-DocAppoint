@@ -2,7 +2,7 @@ import DoctorsSearchSection from "@/components/All-Doctor/DoctorsSearchSection";
 
 const allDoctor = async () => {
   const res = await fetch(
-    "https://doc-appoint-server-beta.vercel.app/all-doctor",
+    "https://server-doc-appoint-psi.vercel.app/all-doctor",
   );
   if (!res.ok) return [];
   const data = await res.json();

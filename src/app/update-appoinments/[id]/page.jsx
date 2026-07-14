@@ -15,7 +15,7 @@ const UpdateAppointments = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`https://doc-appoint-server-beta.vercel.app/appointments/${id}`)
+    fetch(`https://server-doc-appoint-psi.vercel.app/appointments/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBooking(data);
@@ -38,7 +38,7 @@ const UpdateAppointments = () => {
 
     try {
       const res = await fetch(
-        `https://doc-appoint-server-beta.vercel.app/appointments/${id}`,
+        `https://server-doc-appoint-psi.vercel.app/appointments/${id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

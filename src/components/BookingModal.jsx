@@ -30,7 +30,7 @@ const BookingModal = ({ doctorId, doctorName, docPhoto }) => {
     };
 
     const res = await fetch(
-      "https://doc-appoint-server-beta.vercel.app/appointments",
+      "https://server-doc-appoint-psi.vercel.app/appointments",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

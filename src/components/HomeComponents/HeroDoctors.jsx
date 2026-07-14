@@ -2,9 +2,9 @@ import HomeDoctorCard from "./HomeDoctorCard";
 
 const TopDoctors = async () => {
   const res = await fetch(
-    "https://doc-appoint-server-beta.vercel.app/top-3-doctor",
+    "https://server-doc-appoint-psi.vercel.app/top-3-doctor",
   );
-  const topDoctorsData = await res.json(); // await যোগ করা হলো — এটাই "not working" এর মূল কারণ
+  const topDoctorsData = await res.json();
   return topDoctorsData || [];
 };
 

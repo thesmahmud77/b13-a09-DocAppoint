@@ -19,9 +19,11 @@ import Swal from "sweetalert2";
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loding, setLoading] = useState(false);
   const router = useRouter();
 
   const onSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const fromData = new FormData(e.currentTarget);
     const userdata = Object.fromEntries(fromData.entries());
@@ -34,6 +36,7 @@ const SignUpPage = () => {
     });
 
     if (data) {
+      setLoading(false);
       await Swal.fire({
         title: "Registration Completed",
         icon: "success",
@@ -41,10 +44,12 @@ const SignUpPage = () => {
         timer: 1500,
         showConfirmButton: false,
       });
+
       router.push("/");
     }
 
     if (error) {
+      setLoading(false);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -195,7 +200,7 @@ const SignUpPage = () => {
               className="mt-2 w-full h-11 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(59,130,246,0.4)] hover:shadow-[0_6px_20px_rgba(59,130,246,0.5)] transition-all duration-300"
             >
               <Check />
-              Create Account
+              {loding ? "Submiting" : "Create Account"}
             </Button>
 
             <Button

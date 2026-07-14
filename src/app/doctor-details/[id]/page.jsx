@@ -37,7 +37,7 @@ const Page = ({ params }) => {
   useEffect(() => {
     if (id && session?.user) {
       setLoadingDoctor(true);
-      fetch(`https://doc-appoint-server-beta.vercel.app/doctors/${id}`)
+      fetch(`https://server-doc-appoint-psi.vercel.app/doctors/${id}`)
         .then((res) => {
           if (!res.ok) throw new Error("Failed to fetch");
           return res.json();

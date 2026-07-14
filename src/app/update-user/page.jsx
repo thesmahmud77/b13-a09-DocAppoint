@@ -36,7 +36,7 @@ const UpdateUser = () => {
       }
 
       const res = await fetch(
-        `https://doc-appoint-server-beta.vercel.app/update-user?email=${encodeURIComponent(user?.email)}`,
+        `https://server-doc-appoint-psi.vercel.app/update-user?email=${encodeURIComponent(user?.email)}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

@@ -16,7 +16,7 @@ const MyBookings = () => {
     if (!user?.email) return;
 
     fetch(
-      `https://doc-appoint-server-beta.vercel.app/appointments?email=${user.email}`,
+      `https://server-doc-appoint-psi.vercel.app/appointments?email=${user.email}`,
     )
       .then((res) => res.json())
       .then((data) => {
